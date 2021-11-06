@@ -18,6 +18,10 @@ class Grid:
                 self.cells[y-lCorner[0]].append(Cell(y,x))
                 print("(",self.cells[y-lCorner[0]][x-lCorner[1]].y,",", self.cells[y-lCorner[0]][x-lCorner[1]].x,")")
     
+        
+
+
+
     def collision_check(self, other):
         newCells = list()
         set1 = set()
@@ -33,4 +37,5 @@ class Grid:
         # newCells.append(Cell(c1[ele].y, c1[ele].x))
         print("dis", newCells)
         return newCells
-        
+    
+    
