@@ -1,5 +1,5 @@
-from src.cell import Cell
-from src.grid import Grid
+from cell import Cell
+from grid import Grid
 import random
 
 def kruskals(grid):
@@ -18,7 +18,7 @@ def kruskals(grid):
     while walls != []:
         wallNo = random.randint(0, len(walls)-1)    #get a random wall out of the list of walls
         if walls[wallNo].getValue() == True:        #check what the value of the wall currently is
-            cellNo = wallNo//4                      #ass 
+            cellNo = wallNo//4                       
             curCell = cells[cellNo]
             curWallKey = walls[wallNo].getKey()
             exists = False
