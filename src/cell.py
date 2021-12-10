@@ -7,13 +7,12 @@ class Cell:
     row: int
     col: int
     visited: bool = False
-    north: bool = True
-    south: bool = True
-    west: bool = True
-    east: bool = True
+    
     links: list = dc.field(default_factory=list)
     neighbors: list = dc.field(default_factory=list)
-    
+    wall_pairs = {'N':'S', 'S':'N', 'E':'W', 'W': 'E'}
+    walls = {'N': True, 'S': True, 'E': True, 'W': 'E'}
+
 
     # def is_walls_between(self, neighbour):
     #     if self.y - neighbour.y == 1 and self.top and neighbour.bottom:
@@ -31,6 +30,13 @@ class Cell:
         other.link(other, self, False)
         if bidi:
             return self
+
+    def walls_exist(self):
+        return all(self.walls.values())
+
+    def remove_wall(self, other, wall):
+        self.walls[wall] = False
+        other.walls[Cell.wall_pairs[wall]] = False
 
     def unlink(self, other, bidi=True):
         self.links.remove(other)
