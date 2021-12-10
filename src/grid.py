@@ -1,24 +1,25 @@
 import random
 import math
 from cell import Cell
+from dataclasses import dataclass
+import dataclasses as dc
 
+@dataclass(init=True, repr=True, eq=True, order=True)
 class Grid:
     """A grid of cells used to make up the maze"""
+    numRows: int
+    numCols: int
+    cells: list = dc.field(default_factory=list)
 
-    def __init__(self, numRows, numCols, lCorner):
-        self.numRows = numRows
-        self.numCols = numCols
-        self.lCorner = lCorner
-        self.cells = list()
+    def create_grid(self):
+        for y in range(0,self.numRows):
+            for x in range(0,self.numCols):
+                self.cells.append(Cell(y,x))
 
-
-        for y in range(lCorner[0],lCorner[0]+numRows):
-            self.cells.append(list())
-            for x in range(lCorner[1],lCorner[1]+numCols):
-                self.cells[y-lCorner[0]].append(Cell(y,x))
-                print("(",self.cells[y-lCorner[0]][x-lCorner[1]].y,",", self.cells[y-lCorner[0]][x-lCorner[1]].x,")")
-    
-        
+    def initialize_cells(self):
+        num = 0
+        for cell in self.cells:
+          
 
 
 
