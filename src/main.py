@@ -20,27 +20,25 @@ import random
 # print(c2.set)
 # print(c1.set.isdisjoint(c2.set))
 
-# for i in range(3):
-#     # a = random.randint(5,100)
-#     # b = random.randint(5,100)
-#     g1 = Grid(125, 125)
-#     g1.create_grid()
-#     a = random.randint(0,3)
-#     if a == 0:
-#         g1.depth_first()
-#     elif a == 1:
-#         g1.binary()
-#     elif a == 2:
-#         g1.sidewinder()
-#     else:
-#         g1.kruskals()
-#     # mat = g1.create_adj_matrix()
-#     # aList = g1.convert(mat)
-#     g1.print_maze(i+26)
-#     g1.plot(i+26)
+for i in range(50):
+    # a = random.randint(5,100)
+    # b = random.randint(5,100)
+    g1 = Grid(7, 7)
+    g1.create_grid()
+    a = random.randint(0,3)
+    if a == 0:
+        g1.depth_first()
+    elif a == 1:
+        g1.binary()
+    elif a == 2:
+        g1.sidewinder()
+    else:
+        g1.kruskals()
+    # mat = g1.create_adj_matrix()
+    # aList = g1.convert(mat)
+    print(g1.print_maze(550+i))
+    g1.plot(i+550)
 
-# print(g1.uniform_cost_search(aList, 0, [24]))
-# print(g1.a_star(mat, 0, 24))
 
 # g2 = Grid(25, 25)
 # g3 = Grid(25, 25)
@@ -66,14 +64,18 @@ import random
 # g3.write_svg('g3.svg')
 # g4.write_svg('g4.svg')
 
-g5 = Grid(12,12)
+g5 = Grid(50,50)
 g5.create_grid()
 g5.kruskals()
+
 mat = g5.create_adj_matrix()
 aList = g5.convert(mat)
-# print(aList)
 
-path = g5.dfs_shortest_path(aList, 0, 143)
+path = g5.dfs_shortest_path(aList, 0, 2499)
+
 g5.write_path(path)
-print(g5.print_maze(253))
-g5.plot(253)
+path = g5.dfs_shortest_path(aList, 0, 1249)
+g5.write_path(path)
+g5.print_maze(300)
+g5.plot(300)
+

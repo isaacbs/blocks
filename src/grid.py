@@ -125,9 +125,8 @@ class Grid:
 
 
         c1 = random.choice(colors)
-        c2 = random.choice(colors)
 
-        cMap = c1
+        cMap = 'gist_stern'
         plt.pcolormesh(maze, cmap=cMap)
         plt.axis('off')
         plt.xticks([]) # remove the tick marks by setting to an empty list
@@ -225,6 +224,7 @@ class Grid:
             cells_visited += 1
 
     def binary(self):
+        j = 0
         for y in range(self.numRows):
             for x in range(self.numCols):
                 neighbors = []
@@ -236,6 +236,9 @@ class Grid:
                     continue
                 dir, cell = random.choice(neighbors)
                 self.map[x][y].destroy_wall(cell, dir)
+                self.print_maze(1000+j)
+                self.plot(1000+j)
+                j += 1
 
     def sidewinder(self):
         for y in range(self.numRows):

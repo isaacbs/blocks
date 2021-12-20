@@ -1,5 +1,6 @@
 ## Algorithmically generated mazes
- * Written by Isaac Blaine-Sauer and Peter Ortiz
- * Copyright 2021 Isaac Blaine-Sauer and Peter Ortiz, All rights reserved
+![alt text](https://github.com/isaacbs/blocks/src/output/maze252.png?raw=true)
+ * Written by Isaac Blaine-Sauer
+ * Copyright 2021 Isaac Blaine-Sauer, All rights reserved
 Algorithmically generated NFT maze art
 
