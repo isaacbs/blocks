@@ -5,8 +5,8 @@ import random
 def depth_first(graph):
     cmap = graph.random_colors()
     j = 0
-    graph.print_maze(2000+j)
-    graph.plot(2000+j, cmap)
+    graph.print_maze(j)
+    graph.plot(j, cmap)
     j += 1
     num_cells = graph.numCols*graph.numRows
     c_stack = []
@@ -25,14 +25,14 @@ def depth_first(graph):
         nCell.visited = True
         cur.visited = True
         c_stack.append(cur)
-        graph.print_maze(2000+j)
-        graph.plot(2000+j, cmap)
+        graph.print_maze(j)
+        graph.plot(j, cmap)
         j += 1
         cur = nCell
         cur.visited = True
         cells_visited += 1
-    graph.print_maze(2000+j)
-    graph.plot(2000+j, cmap)
+    graph.print_maze(j)
+    graph.plot(j, cmap)
 
 
 def binary(graph):
@@ -58,6 +58,11 @@ def binary(graph):
             j += 1
 
 def sidewinder(graph):
+    cmap = graph.random_colors()
+    j = 0
+    graph.print_maze(j)
+    graph.plot(j, cmap)
+    j += 1
     for y in range(graph.numRows):
         run = 0
         for x in range(graph.numCols):
@@ -65,13 +70,26 @@ def sidewinder(graph):
             if y > 0 and (x+1 == graph.numCols or not random.choice(roll)):
                 t = run + random.randint(0, x - run)
                 graph.map[t][y].destroy_wall(graph.map[t][y-1], 'N')
+                graph.map[x][y].visited = True
+                graph.print_maze(j)
+                graph.plot(j, cmap)
+                j += 1
                 run = x + 1
             elif x+1 < graph.numCols:
                 graph.map[x][y].destroy_wall(graph.map[x+1][y], 'E')
+                graph.map[x][y].visited = True
+                graph.print_maze(j)
+                graph.plot(j, cmap)
+                j += 1  
 
 def kruskals(graph):
     edges = []
     sets = []
+    cmap = graph.random_colors()
+    j = 0
+    graph.print_maze(j)
+    graph.plot(j, cmap)
+    j += 1
     for y in range(graph.numRows):
         for x in range(graph.numCols):
             neighbors = graph.get_neighbors(graph.map[x][y])
@@ -98,7 +116,11 @@ def kruskals(graph):
                     sets.remove(sets[s2])
                 sets.append(s3)
                 graph.map[curEdge.x+1][curEdge.y].destroy_wall(graph.map[curEdge.x][curEdge.y], 'W')
-
+                graph.map[curEdge.x][curEdge.y].visited = True
+                graph.map[curEdge.x+1][curEdge.y].visited = True
+                graph.print_maze(j)
+                graph.plot(j, cmap)
+                j += 1
         elif dir == 'E':
             s1 = 0
             s2 = 0
@@ -117,7 +139,11 @@ def kruskals(graph):
                     sets.remove(sets[s2])
                 sets.append(s3)
                 graph.map[curEdge.x-1][curEdge.y].destroy_wall(graph.map[curEdge.x][curEdge.y], 'E')
-
+                graph.map[curEdge.x][curEdge.y].visited = True
+                graph.map[curEdge.x-1][curEdge.y].visited = True
+                graph.print_maze(j)
+                graph.plot(j, cmap)
+                j += 1
         elif dir == 'S':
             s1 = 0
             s2 = 0
@@ -136,7 +162,11 @@ def kruskals(graph):
                     sets.remove(sets[s2])
                 sets.append(s3)
                 graph.map[curEdge.x][curEdge.y-1].destroy_wall(graph.map[curEdge.x][curEdge.y], 'S')
-
+                graph.map[curEdge.x][curEdge.y].visited = True
+                graph.map[curEdge.x][curEdge.y-1].visited = True
+                graph.print_maze(j)
+                graph.plot(j, cmap)
+                j += 1
         elif dir == 'N':
             s1 = 0
             s2 = 0
@@ -155,5 +185,9 @@ def kruskals(graph):
                     sets.remove(sets[s2])
                 sets.append(s3)
                 graph.map[curEdge.x][curEdge.y+1].destroy_wall(graph.map[curEdge.x][curEdge.y], 'N')
-
+                graph.map[curEdge.x][curEdge.y].visited = True
+                graph.map[curEdge.x][curEdge.y+1].visited = True
+                graph.print_maze(j)
+                graph.plot(j, cmap)
+                j += 1
         edges.remove((curEdge, dir))
