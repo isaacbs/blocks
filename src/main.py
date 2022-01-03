@@ -1,25 +1,15 @@
-from grid import Grid
+from grid import *
 from cell import Cell
 from generation import *
 from pathfinding import *
+import sys
 
-# g = Grid(50,50)
+print(sys.argv)
+args = list(map(int, sys.argv[1:]))
+
+# g = Grid(args[0],args[1])
 # g.create_grid()
 # depth_first(g)
-
-# mat = create_adj_matrix(g)
-# aList = convert(mat)
-
-# path = dfs_shortest_path(aList, 0, 2499)
-
-# write_path(g, path)
-
-# cmap = g.random_colors()
-# g.print_maze(303)
-# g.plot(303, cmap)
-
-g = Grid(5,30)
-g.create_grid()
-depth_first(g)
-g.create_gif()
+# g.create_gif(args[0],args[1])
+clear_images()
 

@@ -1,13 +1,16 @@
+from os import strerror
+import os
 import random
 import math
+from sys import setrecursionlimit
 from cell import Cell
 import matplotlib
 from matplotlib import colors as c
 import matplotlib.pyplot as plt
 import numpy
-from PIL import Image
+import imageio
 import glob
-    
+from PIL import Image
 
 class Grid:
     """A grid of cells used to make up the maze"""
@@ -228,16 +231,111 @@ class Grid:
         return cmap
 
     
-    def create_gif(self):
-        # Create the frames
-        frames = []
-        imgs = glob.glob("output/maze*.png")
-        for i in imgs:
-            new_frame = Image.open(i)
-            frames.append(new_frame)
-        
-        # Save into a GIF file that loops forever
-        frames[0].save('maze2.gif', format='GIF',
-                    append_images=frames[1:],
-                    save_all=True,
-                    duration=100, loop=0)
+    def create_gif(self, height, width):
+        # names = ['output/maze{:01d}.png'.format(i) for i in range(height*width)]
+
+        # start = Image.open(names[0])
+        # start.save('gifs/b0.gif', format="GIF", save_all=True, duration = 75, loop = 0, kmax = 0)
+        # start.close()
+        # i = 0
+        # for name in names[1:]:
+        #     start = Image.open('gifs/b'+str(i)+'.gif')
+        #     i += 1
+        #     frame = Image.open(name)
+        #     start.save('gifs/b'+str(i)+'.gif', format="GIF", append_images=[frame], save_all=True, duration = 75, loop = 0, kmax = 0)
+        #     frame.close()
+        #     start.close()
+
+        # for name in reversed(names):
+        #     start = Image.open('gifs/b'+str(i)+'.gif')
+        #     i += 1
+        #     frame = Image.open(name)
+        #     if i == (height*width*2 - 1):
+        #         start.save('animation2.gif', format="GIF", append_images=[frame], save_all=True, duration = 75, loop = 0, kmax = 0)
+        #     else:
+        #         start.save('gifs/b'+str(i)+'.gif', format="GIF", append_images=[frame], save_all=True, duration = 75, loop = 0, kmax = 0)
+        #     frame.close()
+        #     start.close()
+
+        names = ['output/maze{:01d}.png'.format(i) for i in range(height*width)]
+
+        start = Image.open(names[0])
+        start.save('gifs/b0.gif', format="GIF", save_all=True, duration = 75, loop = 0, kmax = 0)
+        start.close()
+
+        j = 0
+        k = 0
+        first = True
+        imgs = []
+        while k < height*width:
+            i = 0
+            imgs = []
+            while i < 1000 and k < height*width:
+                if first:
+                    i = 1
+                    k = 1
+                    first = False
+                frame = Image.open(names[j*1000+i])
+                imgs.append(frame)
+                i += 1
+                k += 1
+            start = Image.open('gifs/b'+str(j)+'.gif')
+            j += 1
+            print(j, k, i)
+            print(len(imgs))
+            start.save('gifs/b'+str(j)+'.gif', format="GIF", append_images=imgs, save_all=True, duration = 75, loop = 0, kmax = 0)
+            if k < height*width:
+                for img in imgs:
+                    img.close()
+        start = Image.open('gifs/b'+str(j)+'.gif')
+        j += 1
+        start.save('animation5.gif', format="GIF", save_all=True, duration = 75, loop = 0, kmax = 0)
+
+
+
+
+
+
+
+
+
+        # for name in names[1:]:
+        #     start = Image.open('gifs/b'+str(i)+'.gif')
+        #     i += 1
+        #     frame = Image.open(name)
+        #     start.save('gifs/b'+str(i)+'.gif', format="GIF", append_images=[frame], save_all=True, duration = 75, loop = 0, kmax = 0)
+        #     frame.close()
+        #     start.close()
+
+        # for name in reversed(names):
+        #     start = Image.open('gifs/b'+str(i)+'.gif')
+        #     i += 1
+        #     frame = Image.open(name)
+        #     if i == (height*width*2 - 1):
+        #         start.save('animation2.gif', format="GIF", append_images=[frame], save_all=True, duration = 75, loop = 0, kmax = 0)
+        #     else:
+        #         start.save('gifs/b'+str(i)+'.gif', format="GIF", append_images=[frame], save_all=True, duration = 75, loop = 0, kmax = 0)
+        #     frame.close()
+        #     start.close()
+
+
+
+
+
+       
+
+def clear_images():
+    dir = 'text'
+    filelist = glob.glob(os.path.join(dir, "*"))
+    for f in filelist:
+        os.remove(f)
+
+    dir = 'output'
+    files = glob.glob(os.path.join(dir, '*'))
+    for file in files:
+        os.remove(file)
+
+    dir = 'gifs'
+    files = glob.glob(os.path.join(dir, "*"))
+    for file in files:
+        os.remove(file)
